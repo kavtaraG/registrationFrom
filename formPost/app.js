@@ -7,6 +7,10 @@ var dotenv = require('dotenv');
 var http = require('http');
 // var ws = require('ws');
 
+const mongoClient = require('./mongo-test');
+
+mongoClient;
+
 dotenv.config({path: 'process.env'});
 
 var indexRouter = require('./routes/index');
@@ -49,21 +53,19 @@ app.use(function(err, req, res, next) {
 const PORT = process.env || 3000;
 
 const server = http.createServer(app);
-let data;
+
 server.listen(3000, () => {
   console.log(`Listening to the port ${3000}`)
 });
 process.on('uncaughtException', (err, promise) => {
   console.log(`Server Error: ${err}`);
   
-  data = user;
-  server.on('connect', (user) => {
-    console.log(`User is connected to the server: ${user}`)
+  server.on('connect', (data) => {
+    console.log(`User is connected to the server: ${data}`)
   });
 
-  data = user
-  server.on('close', (user) => {
-    console.log(`User disconnected: ${user}`);
+  server.on('close', (data) => {
+    console.log(`User disconnected: ${data}`);
   });
 
   server.close(() => {
